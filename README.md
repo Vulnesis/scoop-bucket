@@ -4,6 +4,8 @@
 
 # Vulnetix Scoop Bucket
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Vulnetix/scoop-bucket)
+
 [Scoop](https://scoop.sh/) bucket for [Vulnetix CLI](https://github.com/Vulnetix/cli) on Windows.
 
 ## Installation
