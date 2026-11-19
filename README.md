@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="pix.svg" alt="Pix, the Vulnetix mascot" width="110">
+  <img src="pix.svg" alt="Pix, the Vulnesis mascot" width="110">
 </p>
 
-# Vulnetix Scoop Bucket
+# Vulnesis Scoop Bucket
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Vulnetix/scoop-bucket)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Vulnesis/scoop-bucket)
 
-[Scoop](https://scoop.sh/) bucket for [Vulnetix CLI](https://github.com/Vulnetix/cli) on Windows.
+[Scoop](https://scoop.sh/) bucket for [Vulnesis CLI](https://github.com/Vulnetix/cli) on Windows.
 
 ## Installation
 
@@ -40,12 +40,12 @@ scoop bucket rm vulnetix
 
 | Package | Description |
 |---------|-------------|
-| `vulnetix` | Vulnetix CLI for vulnerability management |
+| `vulnetix` | Vulnesis CLI for vulnerability management |
 | `belai` | Role-managed, injection-safe LLM coding harness |
 
 ## Links
 
-- [Vulnetix CLI Documentation](https://docs.cli.vulnetix.com/)
+- [Vulnesis CLI Documentation](https://docs.cli.vulnes.is/)
 - [GitHub Releases](https://github.com/Vulnetix/cli/releases)
 
 ## License

@@ -1,6 +1,6 @@
 {
     "version": "4.24.37",
-    "description": "Vulnetix CLI for vulnerability management",
+    "description": "Vulnesis CLI for vulnerability management",
     "homepage": "https://github.com/Vulnetix/cli",
     "license": "AGPL-3.0-only",
     "architecture": {
