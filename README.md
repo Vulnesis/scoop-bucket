@@ -6,13 +6,13 @@
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Vulnesis/scoop-bucket)
 
-[Scoop](https://scoop.sh/) bucket for [Vulnesis CLI](https://github.com/Vulnetix/cli) on Windows.
+[Scoop](https://scoop.sh/) bucket for [Vulnesis CLI](https://github.com/Vulnesis/cli) on Windows.
 
 ## Installation
 
 ```powershell
 # Add the bucket
-scoop bucket add vulnetix https://github.com/Vulnetix/scoop-bucket
+scoop bucket add vulnetix https://github.com/Vulnesis/scoop-bucket
 
 # Install the CLI
 scoop install vulnetix
@@ -46,7 +46,7 @@ scoop bucket rm vulnetix
 ## Links
 
 - [Vulnesis CLI Documentation](https://docs.cli.vulnes.is/)
-- [GitHub Releases](https://github.com/Vulnetix/cli/releases)
+- [GitHub Releases](https://github.com/Vulnesis/cli/releases)
 
 ## License
 

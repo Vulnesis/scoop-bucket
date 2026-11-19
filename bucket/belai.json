@@ -1,35 +1,35 @@
 {
     "version": "0.174.0",
     "description": "Role-managed, injection-safe LLM coding harness",
-    "homepage": "https://github.com/Vulnetix/belai",
+    "homepage": "https://github.com/Vulnesis/belai",
     "license": "Apache-2.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Vulnetix/belai/releases/download/v0.174.0/belai-bert-guardrails-windows-amd64.exe#/belai.exe",
+            "url": "https://github.com/Vulnesis/belai/releases/download/v0.174.0/belai-bert-guardrails-windows-amd64.exe#/belai.exe",
             "hash": "f22ee46d8b970f43be7ab652cb89172ec44ffbda0cfba603e17e76eabd0807a6"
         },
         "arm64": {
-            "url": "https://github.com/Vulnetix/belai/releases/download/v0.174.0/belai-bert-guardrails-windows-arm64.exe#/belai.exe",
+            "url": "https://github.com/Vulnesis/belai/releases/download/v0.174.0/belai-bert-guardrails-windows-arm64.exe#/belai.exe",
             "hash": "d7808d61febe2ce998db3f78701cea461876393c0a6bb6cbd4643f608dd75a65"
         }
     },
     "bin": "belai.exe",
     "checkver": {
-        "github": "https://github.com/Vulnetix/belai"
+        "github": "https://github.com/Vulnesis/belai"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/Vulnetix/belai/releases/download/v$version/belai-bert-guardrails-windows-amd64.exe#/belai.exe",
+                "url": "https://github.com/Vulnesis/belai/releases/download/v$version/belai-bert-guardrails-windows-amd64.exe#/belai.exe",
                 "hash": {
-                    "url": "https://github.com/Vulnetix/belai/releases/download/v$version/checksums.txt",
+                    "url": "https://github.com/Vulnesis/belai/releases/download/v$version/checksums.txt",
                     "regex": "([a-fA-F0-9]{64})  belai-bert-guardrails-windows-amd64.exe"
                 }
             },
             "arm64": {
-                "url": "https://github.com/Vulnetix/belai/releases/download/v$version/belai-bert-guardrails-windows-arm64.exe#/belai.exe",
+                "url": "https://github.com/Vulnesis/belai/releases/download/v$version/belai-bert-guardrails-windows-arm64.exe#/belai.exe",
                 "hash": {
-                    "url": "https://github.com/Vulnetix/belai/releases/download/v$version/checksums.txt",
+                    "url": "https://github.com/Vulnesis/belai/releases/download/v$version/checksums.txt",
                     "regex": "([a-fA-F0-9]{64})  belai-bert-guardrails-windows-arm64.exe"
                 }
             }
