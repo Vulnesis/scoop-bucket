@@ -1,0 +1,42 @@
+name: Follow releases
+
+# Moves every manifest to its project's latest release once that release's
+# canary has passed (scripts/follow-releases). The projects' release workflows
+# used to push here with a personal token; this repository now pulls instead,
+# with its own GITHUB_TOKEN, so no token outside it is needed.
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: follow-releases
+  cancel-in-progress: false
+
+jobs:
+  follow:
+    runs-on: [self-hosted, vulnesis-cf-small]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Update the manifests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/follow-releases
+      - name: Commit
+        run: |
+          git add bucket
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "$(git diff --cached --name-only | xargs -n1 basename | sed 's/\.json$//' | paste -sd, -): follow the latest releases"
+          for attempt in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            git pull --rebase origin main
+          done
+          exit 1

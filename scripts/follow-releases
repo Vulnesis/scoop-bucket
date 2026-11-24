@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Move each manifest to its project's latest release, once that release is
+# ready: the release run's canary passed (when the workflow has one). Uses the
+# manifest's own checkver.github and autoupdate templates, with the hashes read
+# from the release's checksums.txt. Never moves a manifest back. Run by
+# .github/workflows/follow-releases.yml; the projects' release workflows no
+# longer push here, so no token outside this repository is needed.
+#
+#   scripts/follow-releases [bucket/<name>.json ...]   (default: every manifest)
+#
+# Needs GH_TOKEN (this repository's GITHUB_TOKEN; the projects are public).
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+# ready <owner/repo> <tag>: the release run for <tag> passed its canary.
+ready() {
+  local repo=$1 tag=$2 run jobs
+  run=$(gh api "repos/$repo/actions/runs?head_branch=$tag&per_page=20" \
+    --jq '[.workflow_runs[] | select(.name == "Release")] | sort_by(.created_at) | last | .id // empty')
+  [ -n "$run" ] || return 0 # released by hand: nothing to wait for
+  jobs=$(gh api "repos/$repo/actions/runs/$run/jobs?per_page=100" --paginate \
+    --jq '.jobs[] | "\(.name)\t\(.status)\t\(.conclusion // "")"')
+  if grep -q '^canary	' <<<"$jobs"; then
+    grep -q '^canary	completed	success$' <<<"$jobs"
+  else
+    grep -qE '^release	completed	success$' <<<"$jobs"
+  fi
+}
+
+files=("$@")
+[ ${#files[@]} -gt 0 ] || files=(bucket/*.json)
+for f in "${files[@]}"; do
+  name=$(basename "$f" .json)
+  repo=$(jq -r '.checkver.github // empty' "$f" | sed -E 's#^https://github.com/##; s#/$##')
+  [ -n "$repo" ] || { echo "$name: no checkver.github; skipped"; continue; }
+  cur=$(jq -r '.version' "$f")
+  tag=$(gh api "repos/$repo/releases/latest" --jq .tag_name 2>/dev/null || true)
+  [ -n "$tag" ] || { echo "$name: $repo has no latest release"; continue; }
+  new=${tag#v}
+  if [ "$new" = "$cur" ]; then echo "$name: at $cur"; continue; fi
+  if [ "$(printf '%s\n%s\n' "$cur" "$new" | sort -V | tail -n1)" = "$cur" ]; then
+    echo "$name: $cur is newer than $repo latest $new; left alone"; continue
+  fi
+  if ! ready "$repo" "$tag"; then echo "$name: $repo $tag is not ready (canary)"; continue; fi
+  sums=$(curl -fsSL --retry 5 --retry-all-errors "https://github.com/$repo/releases/download/$tag/checksums.txt") ||
+    { echo "::warning::$name: $repo $tag has no checksums.txt"; continue; }
+
+  out=$(jq --arg v "$new" '.version = $v' "$f")
+  ok=true
+  for arch in $(jq -r '.autoupdate.architecture | keys[]' "$f"); do
+    url=$(jq -r --arg a "$arch" '.autoupdate.architecture[$a].url' "$f" | sed "s/\$version/$new/g")
+    asset=$(jq -r --arg a "$arch" '.autoupdate.architecture[$a].hash.regex' "$f" | sed -E 's/^.*\)  //')
+    sum=$(awk -v a="$asset" '$2 == a || $2 == "*" a { print $1 }' <<<"$sums")
+    if [ ${#sum} -ne 64 ]; then echo "::warning::$name: no checksum for $asset in $tag"; ok=false; break; fi
+    out=$(jq --arg a "$arch" --arg u "$url" --arg h "$sum" \
+      '.architecture[$a].url = $u | .architecture[$a].hash = $h' <<<"$out")
+  done
+  [ "$ok" = true ] || continue
+  jq --indent 4 . <<<"$out" > "$f"
+  echo "$name: $cur -> $new"
+done
