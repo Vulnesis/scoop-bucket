@@ -14,7 +14,7 @@ permissions:
 jobs:
   secrets:
     name: Secrets
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7.0.1
@@ -30,7 +30,7 @@ jobs:
 
   publish:
     name: Publish
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     if: ${{ !cancelled() }}
     needs: [secrets]
     permissions:

@@ -18,7 +18,7 @@ permissions:
 jobs:
   bearer:
     name: Bearer (SAST)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run Bearer
@@ -49,7 +49,7 @@ jobs:
 
   cdxgen:
     name: cdxgen (multi-ecosystem SBOM)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Set up Node.js
@@ -81,7 +81,7 @@ jobs:
 
   detect-secrets:
     name: detect-secrets (secrets)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Set up uv
@@ -195,7 +195,7 @@ jobs:
 
   github-sbom:
     name: GitHub SBOM (SPDX)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Export the dependency graph
@@ -227,7 +227,7 @@ jobs:
 
   gitleaks:
     name: Gitleaks (Secrets)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run Gitleaks
@@ -253,7 +253,7 @@ jobs:
 
   grype:
     name: Grype (SCA)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run Grype
@@ -280,7 +280,7 @@ jobs:
 
   noseyparker:
     name: Nosey Parker (secrets)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run Nosey Parker
@@ -314,7 +314,7 @@ jobs:
 
   opengrep:
     name: OpenGrep (SAST)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run OpenGrep
@@ -348,7 +348,7 @@ jobs:
 
   osv-scanner:
     name: OSV-Scanner (SCA)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run OSV-Scanner
@@ -370,7 +370,7 @@ jobs:
 
   scancode:
     name: ScanCode Toolkit (license SBOM)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Set up uv
@@ -428,7 +428,7 @@ jobs:
 
   semgrep:
     name: Semgrep (SAST)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Set up uv
@@ -458,7 +458,7 @@ jobs:
 
   syft:
     name: Syft (CycloneDX SBOM)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Generate CycloneDX SBOM
@@ -480,7 +480,7 @@ jobs:
 
   trivy-fs:
     name: Trivy (filesystem CDX + SARIF)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Trivy filesystem (CycloneDX)
@@ -512,7 +512,7 @@ jobs:
 
   trufflehog:
     name: TruffleHog (secrets)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Run TruffleHog
@@ -640,7 +640,7 @@ jobs:
 
   zizmor:
     name: zizmor (GitHub Actions SAST)
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Set up uv
@@ -682,7 +682,7 @@ jobs:
 
   publish:
     name: Publish to Vulnetix
-    runs-on: [self-hosted, Linux, X64, vulnetix-local]
+    runs-on: [self-hosted, Linux, X64, vulnesis-cf]
     needs: [bearer, cdxgen, detect-secrets, github-sbom, gitleaks, grype, noseyparker, opengrep, osv-scanner, scancode, semgrep, syft, trivy-fs, trufflehog, zizmor]
     if: always()
     permissions:
