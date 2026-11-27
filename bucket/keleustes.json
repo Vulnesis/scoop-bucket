@@ -1,0 +1,27 @@
+{
+    "version": "0.1.0-rc.2",
+    "description": "Desktop Software Factory that coordinates belai hosts",
+    "homepage": "https://github.com/Vulnesis/keleustes",
+    "license": "Apache-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Vulnesis/keleustes/releases/download/v0.1.0-rc.2/keleustes-windows-amd64.exe#/keleustes.exe",
+            "hash": "0c5dd06d685130e926bfa7ff86a8e5658ac364352eeb576c3cd94ce8b35241d9"
+        }
+    },
+    "bin": "keleustes.exe",
+    "checkver": {
+        "github": "https://github.com/Vulnesis/keleustes"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Vulnesis/keleustes/releases/download/v$version/keleustes-windows-amd64.exe#/keleustes.exe",
+                "hash": {
+                    "url": "https://github.com/Vulnesis/keleustes/releases/download/v$version/checksums.txt",
+                    "regex": "([a-fA-F0-9]{64})  keleustes-windows-amd64.exe"
+                }
+            }
+        }
+    }
+}
