@@ -42,6 +42,7 @@ scoop bucket rm vulnetix
 |---------|-------------|
 | `vulnetix` | Vulnesis CLI for vulnerability management |
 | `belai` | Role-managed, injection-safe LLM coding harness |
+| `keleustes` | Desktop Software Factory that coordinates belai hosts |
 
 ## Links
 

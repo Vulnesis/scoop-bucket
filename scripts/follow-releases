@@ -38,7 +38,8 @@ for f in "${files[@]}"; do
   [ -n "$tag" ] || { echo "$name: $repo has no latest release"; continue; }
   new=${tag#v}
   if [ "$new" = "$cur" ]; then echo "$name: at $cur"; continue; fi
-  if [ "$(printf '%s\n%s\n' "$cur" "$new" | sort -V | tail -n1)" = "$cur" ]; then
+  # A pre-release (1.0.0-rc.1) sorts before its release: `-` becomes `~`.
+  if [ "$(printf '%s\n%s\n' "${cur/-/~}" "${new/-/~}" | sort -V | tail -n1)" = "${cur/-/~}" ]; then
     echo "$name: $cur is newer than $repo latest $new; left alone"; continue
   fi
   if ! ready "$repo" "$tag"; then echo "$name: $repo $tag is not ready (canary)"; continue; fi
